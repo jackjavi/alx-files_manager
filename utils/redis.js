@@ -1,7 +1,7 @@
-import { createClient } from "redis";
-import { promisify } from "util";
+const { createClient } = require("redis");
+const { promisify } = require("util");
 
-class RedisClient {
+const RedisClient = class RedisClient {
   constructor() {
     this.myClient = createClient();
     this.myClient.on("error", (error) => console.log(error));
@@ -25,8 +25,8 @@ class RedisClient {
     const delAsync = promisify(this.myClient.DEL).bind(this.myClient);
     return delAsync(key);
   }
-}
+};
 
 const redisClient = new RedisClient();
 
-export default redisClient;
+module.exports = redisClient;

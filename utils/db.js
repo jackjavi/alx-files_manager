@@ -1,8 +1,8 @@
-import { env } from "process";
-import { MongoClient, ObjectId } from "mongodb";
+const { MongoClient, ObjectId } = require("mongodb");
+const { env } = process;
 
 // eslint-disable-next-line import/prefer-default-export
-export class DBClient {
+const DBClient = class DBClients {
   constructor() {
     const host = env.DB_PORT ? env.DB_PORT : "127.0.0.1";
     const port = env.DB_HOST ? env.DB_HOST : 27017;
@@ -65,8 +65,8 @@ export class DBClient {
     });
     return myCollection.findOne(filters);
   }
-}
+};
 
 const dbClient = new DBClient();
 
-export default dbClient;
+module.exports = dbClient;
