@@ -65,6 +65,22 @@ const DBClient = class DBClients {
     });
     return myCollection.findOne(filters);
   }
+
+  async newFile(userId, name, type, isPublic = false, parentId = null, data) {
+    const myDB = this.myClient.db();
+    const myCollection = myDB.collection("files");
+
+    const fileDocument = {
+      userId: ObjectId(userId),
+      name,
+      type,
+      isPublic,
+      parentId: parentId ? ObjectId(parentId) : null,
+      data,
+    };
+
+    return myCollection.insertOne(fileDocument);
+  }
 };
 
 const dbClient = new DBClient();
